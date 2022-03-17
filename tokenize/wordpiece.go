@@ -42,19 +42,18 @@ func (wp Wordpiece) Tokenize(text string) []string {
 			toks = append(toks, wp.unknownToken)
 			continue
 		}
-		for len(tok) > 0 && tok != "##" {
-			sub := wp.vocab.LongestSubstring(tok)
-			fmt.Println("1----",sub)
+		var tks []string
+		tk := tok
+		for len(tk) > 0 && tk != "##" {
+			sub := wp.vocab.LongestSubstring(tk)
 			if sub == "" {
-				toks = append(toks, wp.unknownToken)
+				tks = []string{tok}
 				break
 			}
-			toks = append(toks, sub)
-			fmt.Println("1----",tok)
-
-			tok = fmt.Sprintf("##%s", tok[len(sub):])
-			fmt.Println("2----",tok)
+			tks = append(tks, sub)
+			tk = fmt.Sprintf("##%s", tk[len(sub):])
 		}
+		toks = append(toks, tks...)
 	}
 	return toks
 }
