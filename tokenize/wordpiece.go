@@ -44,12 +44,14 @@ func (wp Wordpiece) Tokenize(text string) []string {
 		}
 		for len(tok) > 0 && tok != "##" {
 			sub := wp.vocab.LongestSubstring(tok)
+			fmt.Println("1----",sub)
 			if sub == "" {
 				toks = append(toks, wp.unknownToken)
 				break
 			}
 			toks = append(toks, sub)
 			fmt.Println("1----",tok)
+
 			tok = fmt.Sprintf("##%s", tok[len(sub):])
 			fmt.Println("2----",tok)
 		}
