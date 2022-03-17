@@ -96,6 +96,9 @@ func (v Dict) LongestSubstring(token string) string {
 	// Greedt, optimize to trie if needed
 	for i := len(token); i > 0; i-- {
 		sub := token[:i]
+		if sub == "##" {
+			return ""
+		}
 		if _, ok := v.tokens[sub]; ok {
 			return sub
 		}
